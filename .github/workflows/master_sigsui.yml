@@ -50,5 +50,5 @@ jobs:
       uses: azure/webapps-deploy@v2
       with:
         app-name: 'sigsui'
-        publish-profile: $
+        publish-profile: ${{ secrets.AzureAppService_PublishProfile_0d279eda12714c2f9ee58eaa8a94e987 }}
         package: ./dist/sigsui
