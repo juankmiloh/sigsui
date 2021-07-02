@@ -7,14 +7,13 @@ on:
   push:
     branches:
       - master
-  workflow_dispatch:
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@master
 
     - name: Set up Node.js version
       uses: actions/setup-node@v1
@@ -27,18 +26,9 @@ jobs:
         npm run build --prod
       working-directory: .
 
-  deploy:
-    runs-on: ubuntu-latest
-    needs: build
-    environment:
-      name: 'production'
-      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
-
     - name: 'Deploy to Azure Web App'
-      id: deploy-to-webapp
       uses: azure/webapps-deploy@v2
       with:
         app-name: 'sigsui'
-        slot-name: 'production'
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_0d279eda12714c2f9ee58eaa8a94e987 }}
-        package: .
+        package: ./dist/sigsui
