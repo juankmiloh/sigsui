@@ -1,10 +1,6 @@
 # Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 
-- name: Upload a Build Artifact
-  uses: actions/upload-artifact@v2.2.4
-
-
 name: Build and deploy Node.js app to Azure Web App - sigsui
 
 on:
@@ -29,6 +25,7 @@ jobs:
       run: |
         npm install
         npm run build --prod
+      working-directory: .
 
     - name: Upload artifact for deployment job
       uses: actions/upload-artifact@v2
