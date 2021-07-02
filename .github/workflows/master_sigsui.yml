@@ -7,13 +7,14 @@ on:
   push:
     branches:
       - master
+  workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@master
+    - uses: actions/checkout@v2
 
     - name: Set up Node.js version
       uses: actions/setup-node@v1
@@ -38,5 +39,6 @@ jobs:
       uses: azure/webapps-deploy@v2
       with:
         app-name: 'sigsui'
+        slot-name: 'production'
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_0d279eda12714c2f9ee58eaa8a94e987 }}
-        package: ./dist/sigsui
+        package: .
